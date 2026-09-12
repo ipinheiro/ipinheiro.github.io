@@ -1,0 +1,160 @@
+---
+import '../../styles/global.css';
+import { books, readingYears } from '../../data/reading';
+
+const year = 2026;
+const yearBooks = books.filter((book) => book.year === year);
+const currentlyReading = yearBooks.filter((book) => book.status === 'reading');
+const finishedBooks = yearBooks.filter((book) => book.status === 'finished');
+const favourites = finishedBooks.filter((book) => book.favourite);
+
+const formatDate = (date: string) => new Intl.DateTimeFormat('en-GB', {
+  day: 'numeric',
+  month: 'short',
+  timeZone: 'UTC',
+}).format(new Date(`${date}T00:00:00Z`));
+
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content="Books Inês Pinheiro read in 2026." />
+    <title>Reading / 2026 · Inês Pinheiro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,100..900&display=swap" rel="stylesheet" />
+  </head>
+  <body class="reading-page">
+    <header class="site-header">
+      <div class="shell site-header-inner">
+        <a class="wordmark" href="/">Inês Pinheiro</a>
+        <nav aria-label="Primary navigation">
+          <a href="/#work">Work</a>
+          <a href="/#making">Making</a>
+          <a href="/reading/2026/" aria-current="page">Reading</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="reading-archive-hero">
+        <div class="shell reading-archive-hero-inner">
+          <div class="section-index">Reading / archive</div>
+          <div class="reading-archive-title">
+            <h1>Reading</h1>
+            <div class="reading-archive-year" aria-label="2026">’26</div>
+          </div>
+          <p>Books I finished, abandoned, loved, argued with or kept thinking about.</p>
+          <div class="reading-archive-mark" aria-hidden="true">× · × · · × · ×<br />· × · × × · · ×</div>
+        </div>
+      </section>
+
+      {yearBooks.length === 0 ? (
+        <section class="reading-empty">
+          <div class="shell reading-empty-inner">
+            <span>2026 / awaiting books</span>
+            <p>The archive is ready. I haven’t added my 2026 reading list yet.</p>
+          </div>
+        </section>
+      ) : (
+        <>
+          {currentlyReading.length > 0 && (
+            <section class="currently-reading">
+              <div class="shell">
+                <div class="reading-section-heading">
+                  <div class="section-index">Currently reading</div>
+                  <span>In progress / 2026</span>
+                </div>
+                <div class="currently-reading-list">
+                  {currentlyReading.map((book) => (
+                    <article class="book-tile current-book">
+                      <div class="book-copy">
+                        <span>{book.readingLocation === 'kindle' ? 'Open in the Kindle' : book.readingLocation === 'bedside-table' ? 'Open on the bedside table' : 'Currently reading'}</span>
+                        <div>
+                          <h2>{book.title}</h2>
+                          <p class="book-author">{book.author}</p>
+                        </div>
+                        {book.dateStarted && <p class="book-date">Started {formatDate(book.dateStarted)}</p>}
+                        {book.note && <p class="book-note">{book.note}</p>}
+                      </div>
+                    </article>
+                  ))}
+                </div>
+              </div>
+            </section>
+          )}
+
+          {finishedBooks.length > 0 && (
+            <section class="finished-books">
+              <div class="shell">
+                <div class="reading-section-heading">
+                  <div class="section-index">The year so far</div>
+                  <span>Finished / 2026</span>
+                </div>
+                <div class="book-shelf">
+                  {finishedBooks.map((book, index) => (
+                    <article class={`book-tile book-entry book-entry-${index % 5}`}>
+                      <div class="book-copy">
+                        <span>{book.category ?? book.status}</span>
+                        <div>
+                          <h2>{book.title}</h2>
+                          <p class="book-author">{book.author}</p>
+                        </div>
+                        {book.dateFinished && <p class="book-date">Finished {formatDate(book.dateFinished)}</p>}
+                        {book.note && <p class="book-note">{book.note}</p>}
+                      </div>
+                    </article>
+                  ))}
+                </div>
+              </div>
+            </section>
+          )}
+
+          {favourites.length > 0 && (
+            <section class="reading-favourites">
+              <div class="shell">
+                <div class="reading-section-heading">
+                  <div class="section-index">Still thinking about</div>
+                  <span>Marked favourites</span>
+                </div>
+                <div class="favourite-books">
+                  {favourites.map((book) => (
+                    <article class="book-tile">
+                      <div class="book-copy">
+                        <span>Favourite</span>
+                        <div>
+                          <h2>{book.title}</h2>
+                          <p class="book-author">{book.author}</p>
+                        </div>
+                        {book.note && <p class="book-note">{book.note}</p>}
+                      </div>
+                    </article>
+                  ))}
+                </div>
+              </div>
+            </section>
+          )}
+        </>
+      )}
+
+      <section class="reading-year-index">
+        <div class="shell reading-year-index-inner">
+          <div class="section-index">Year archive</div>
+          <nav aria-label="Reading archive by year">
+            {readingYears.map((archiveYear) => (
+              <a href={`/reading/${archiveYear}/`} aria-current={archiveYear === year ? 'page' : undefined}>{archiveYear}</a>
+            ))}
+          </nav>
+        </div>
+      </section>
+    </main>
+
+    <footer class="shell">
+      <div>Inês Pinheiro · 2026</div>
+      <div><a href="/">Back home ↑</a></div>
+    </footer>
+  </body>
+</html>

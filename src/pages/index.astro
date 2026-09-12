@@ -1,7 +1,11 @@
 ---
 import '../styles/global.css';
+import { books } from '../data/reading';
 
 const nav = ['Work', 'Making', 'Reading'];
+const booksReadIn2026 = books.filter((book) => book.year === 2026);
+const currentlyReading = booksReadIn2026.find((book) => book.status === 'reading');
+const finishedPreview = booksReadIn2026.filter((book) => book.status === 'finished').slice(-3).reverse();
 
 const career = [
   { years: '2009–2013', title: 'BA Communication & Media Studies', place: 'UCP · Lisbon, Portugal', kind: 'education' },
@@ -121,7 +125,7 @@ const career = [
             <p>Sometimes that means software. Sometimes yarn or paint wins.</p>
           </div>
           <div class="making-grid">
-            <div class="art art-code"><span>software / commonplace</span><strong>COMMON<br />PLACE</strong><small>a commonplace-book app for collecting ideas, connecting them and finding them again</small></div>
+            <a class="art art-code" href="https://github.com/ipinheiro/commonplace" target="_blank" rel="noopener noreferrer" aria-label="Commonplace on GitHub (opens in a new tab)"><span>software / commonplace ↗</span><strong>COMMON<br />PLACE</strong><small>a commonplace-book app for collecting ideas, connecting them and finding them again</small></a>
             <div class="art art-yarn"><span>knitting / in progress</span><div class="stitches">∨ ∨ ∨ ∨ ∨<br />∨ ∧ ∨ ∧ ∨<br />∧ ∨ ∧ ∨ ∧</div></div>
             <div class="art art-paint"><span>watercolour / studies</span><div class="wash"></div></div>
           </div>
@@ -134,9 +138,29 @@ const career = [
           <div class="reading-copy">
             <h2>Books, essays and rabbit holes.</h2>
             <p>A record of what I read in 2026. Reviews are optional.</p>
+            <a href="/reading/2026/">Open the 2026 archive ↗</a>
           </div>
           <div class="reading-year" aria-label="2026">’26</div>
-          <div class="mini-books" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+          <div class="reading-preview">
+            {currentlyReading ? (
+              <article class="reading-preview-current">
+                <span>Currently reading</span>
+                <strong>{currentlyReading.title}</strong>
+                <small>{currentlyReading.author}</small>
+              </article>
+            ) : (
+              <div class="reading-matrix" aria-hidden="true">× · · ×<br />· × × ·<br />× · × ·</div>
+            )}
+            {finishedPreview.length > 0 && (
+              <div class="reading-preview-books">
+                {finishedPreview.map((book) => (
+                  <div class={book.cover ? '' : 'missing-cover'}>
+                    {book.cover ? <img src={book.cover.src} alt={book.cover.alt} loading="lazy" /> : <span>{book.title}</span>}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
       </section>
     </main>
