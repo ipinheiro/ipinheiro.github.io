@@ -27,11 +27,11 @@ nav { display:flex; gap:28px; }
 
 .hero { min-height:690px; display:grid; grid-template-columns:repeat(12,1fr); grid-template-rows:auto 1fr auto; padding:38px 0 58px; border-bottom:1px solid var(--ink); }
 .eyebrow { grid-column:1/5; }
-.hero h1 { grid-column:1/10; align-self:center; margin:36px 0 18px; font-size:clamp(58px,7.8vw,126px); line-height:.87; letter-spacing:-.062em; font-weight:780; max-width:1160px; }
+.hero h1 { grid-column:1/10; align-self:center; margin:36px 0 18px; font-size:clamp(58px,6.4vw,96px); line-height:.87; letter-spacing:-.062em; font-weight:780; max-width:1160px; white-space:nowrap; }
 .hero-kicker { grid-column:1/8; margin:0; color:var(--rust); font-size:clamp(23px,2.6vw,38px); line-height:1; letter-spacing:-.04em; font-weight:650; }
 .hero-aside { grid-column:10/13; grid-row:2/4; align-self:center; }
-.hero-aside p { font-size:17px; line-height:1.5; }
-.pattern { color:var(--rust); font-size:22px; line-height:1.1; letter-spacing:.2em; margin-bottom:26px; }
+.hero-aside p { margin:0; font-size:17px; line-height:1.5; }
+.pattern { margin:24px 0; color:var(--rust); font-size:22px; line-height:1.1; letter-spacing:.2em; }
 
 .career { background:#eee6da; border-bottom:1px solid var(--ink); }
 .career-inner { padding:76px 0 90px; }
@@ -100,7 +100,7 @@ nav { display:flex; gap:28px; }
 footer { min-height:170px; display:flex; align-items:center; justify-content:space-between; font-size:12px; text-transform:uppercase; letter-spacing:.08em; }
 
 @media (max-width:1200px) {
-  .hero h1 { font-size:clamp(56px,7.4vw,104px); max-width:980px; }
+  .hero h1 { font-size:clamp(56px,6.4vw,82px); max-width:980px; }
   .hero-kicker { font-size:clamp(22px,2.5vw,34px); }
 }
 
@@ -109,7 +109,7 @@ footer { min-height:170px; display:flex; align-items:center; justify-content:spa
   nav { gap:15px; }
   .hero { min-height:650px; }
   .eyebrow { grid-column:1/-1; }
-  .hero h1 { grid-column:1/-1; font-size:clamp(52px,13vw,88px); }
+  .hero h1 { grid-column:1/-1; font-size:clamp(48px,9.5vw,73px); }
   .hero-kicker { grid-column:1/-1; }
   .hero-aside { grid-column:1/-1; grid-row:auto; margin-top:55px; max-width:520px; }
   .career-heading,.recent-work-heading,.making-heading { grid-template-columns:1fr; gap:24px; }
@@ -125,7 +125,7 @@ footer { min-height:170px; display:flex; align-items:center; justify-content:spa
 }
 
 @media (max-width:560px) {
-  nav a:nth-child(4) { display:none; }
+  .hero h1 { font-size:clamp(32px,9.4vw,48px); }
   .career-key { gap:12px; }
   .reading-inner { grid-template-columns:1fr; }
   .reading-year { font-size:130px; }
