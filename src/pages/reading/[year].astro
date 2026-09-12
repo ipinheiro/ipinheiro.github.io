@@ -1,51 +1,43 @@
 ---
-import '../../styles/global.css';
-import { books, readingYears } from '../../data/reading';
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import {
+  getReadingArchive,
+  getReadingLocationLabel,
+  readingYears,
+  type ISODate,
+  type ReadingYear,
+} from '../../data/reading';
 
-const year = 2026;
-const yearBooks = books.filter((book) => book.year === year);
-const currentlyReading = yearBooks.filter((book) => book.status === 'reading');
-const finishedBooks = yearBooks.filter((book) => book.status === 'finished');
-const favourites = finishedBooks.filter((book) => book.favourite);
+export function getStaticPaths() {
+  return readingYears.map((year) => ({
+    params: { year: String(year) },
+    props: { year },
+  }));
+}
 
-const formatDate = (date: string) => new Intl.DateTimeFormat('en-GB', {
+interface Props {
+  year: ReadingYear;
+}
+
+const { year } = Astro.props;
+const readingArchive = getReadingArchive(year);
+const { all: yearBooks, currentlyReading, finished: finishedBooks, favourites } = readingArchive;
+const shortYear = String(year).slice(-2);
+
+const formatDate = (date: ISODate) => new Intl.DateTimeFormat('en-GB', {
   day: 'numeric',
   month: 'short',
   timeZone: 'UTC',
 }).format(new Date(`${date}T00:00:00Z`));
-
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="description" content="Books Inês Pinheiro read in 2026." />
-    <title>Reading / 2026 · Inês Pinheiro</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,100..900&display=swap" rel="stylesheet" />
-  </head>
-  <body class="reading-page">
-    <header class="site-header">
-      <div class="shell site-header-inner">
-        <a class="wordmark" href="/">Inês Pinheiro</a>
-        <nav aria-label="Primary navigation">
-          <a href="/#work">Work</a>
-          <a href="/#making">Making</a>
-          <a href="/reading/2026/" aria-current="page">Reading</a>
-        </nav>
-      </div>
-    </header>
-
-    <main>
+<SiteLayout page="reading" title={`Reading / ${year} · Inês Pinheiro`} description={`Books Inês Pinheiro read in ${year}.`}>
       <section class="reading-archive-hero">
         <div class="shell reading-archive-hero-inner">
           <div class="section-index">Reading / archive</div>
           <div class="reading-archive-title">
             <h1>Reading</h1>
-            <div class="reading-archive-year" aria-label="2026">’26</div>
+            <div class="reading-archive-year" aria-label={String(year)}>’{shortYear}</div>
           </div>
           <p>Books I finished, abandoned, loved, argued with or kept thinking about.</p>
           <div class="reading-archive-mark" aria-hidden="true">× · × · · × · ×<br />· × · × × · · ×</div>
@@ -55,8 +47,8 @@ const formatDate = (date: string) => new Intl.DateTimeFormat('en-GB', {
       {yearBooks.length === 0 ? (
         <section class="reading-empty">
           <div class="shell reading-empty-inner">
-            <span>2026 / awaiting books</span>
-            <p>The archive is ready. I haven’t added my 2026 reading list yet.</p>
+            <span>{year} / awaiting books</span>
+            <p>The archive is ready. I haven’t added my {year} reading list yet.</p>
           </div>
         </section>
       ) : (
@@ -66,13 +58,13 @@ const formatDate = (date: string) => new Intl.DateTimeFormat('en-GB', {
               <div class="shell">
                 <div class="reading-section-heading">
                   <div class="section-index">Currently reading</div>
-                  <span>In progress / 2026</span>
+                  <span>In progress / {year}</span>
                 </div>
                 <div class="currently-reading-list">
                   {currentlyReading.map((book) => (
                     <article class="book-tile current-book">
                       <div class="book-copy">
-                        <span>{book.readingLocation === 'kindle' ? 'Open in the Kindle' : book.readingLocation === 'bedside-table' ? 'Open on the bedside table' : 'Currently reading'}</span>
+                        <span>{getReadingLocationLabel(book.readingLocation)}</span>
                         <div>
                           <h2>{book.title}</h2>
                           <p class="book-author">{book.author}</p>
@@ -92,11 +84,11 @@ const formatDate = (date: string) => new Intl.DateTimeFormat('en-GB', {
               <div class="shell">
                 <div class="reading-section-heading">
                   <div class="section-index">The year so far</div>
-                  <span>Finished / 2026</span>
+                  <span>Finished / {year}</span>
                 </div>
                 <div class="book-shelf">
-                  {finishedBooks.map((book, index) => (
-                    <article class={`book-tile book-entry book-entry-${index % 5}`}>
+                  {finishedBooks.map((book) => (
+                    <article class="book-tile book-entry">
                       <div class="book-copy">
                         <span>{book.category ?? book.status}</span>
                         <div>
@@ -150,11 +142,4 @@ const formatDate = (date: string) => new Intl.DateTimeFormat('en-GB', {
           </nav>
         </div>
       </section>
-    </main>
-
-    <footer class="shell">
-      <div>Inês Pinheiro · 2026</div>
-      <div><a href="/">Back home ↑</a></div>
-    </footer>
-  </body>
-</html>
+</SiteLayout>
