@@ -27,22 +27,26 @@ const career = [
     <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,100..900&display=swap" rel="stylesheet" />
   </head>
   <body>
-    <header class="site-header shell">
-      <a class="wordmark" href="/">Inês Pinheiro</a>
-      <nav aria-label="Primary navigation">
-        {nav.map((item) => <a href={`/#${item.toLowerCase()}`}>{item}</a>)}
-      </nav>
+    <header class="site-header">
+      <div class="shell site-header-inner">
+        <a class="wordmark" href="/">Inês Pinheiro</a>
+        <nav aria-label="Primary navigation">
+          {nav.map((item) => <a href={`/#${item.toLowerCase()}`}>{item}</a>)}
+        </nav>
+      </div>
     </header>
 
     <main>
-      <section class="hero shell">
-        <div class="eyebrow">Data · code · books · making things</div>
-        <h1>My name is Inês.<br />I build things.<br />Data is usually involved.</h1>
-        <p class="hero-kicker">Some projects get quite silly.</p>
-        <div class="hero-aside">
-          <p>I came to data science through publishing and metadata. These days I work with data and code, usually where the problem is messy and the answer needs to be useful.</p>
-          <div class="pattern" aria-hidden="true">× · × · · ×<br />· × · × × ·<br />× · · × · ×</div>
-          <p>At home, software, yarn, paint and books all compete for space.</p>
+      <section class="hero">
+        <div class="shell hero-inner">
+          <div class="eyebrow">Data · code · books · making things</div>
+          <h1>My name is Inês.<br />I build things.<br />Data is usually involved.</h1>
+          <p class="hero-kicker">Some projects get quite silly.</p>
+          <div class="hero-aside">
+            <p>I came to data science through publishing and metadata. These days I work with data and code, usually where the problem is messy and the answer needs to be useful.</p>
+            <div class="pattern" aria-hidden="true">× · × · · ×<br />· × · × × ·<br />× · · × · ×</div>
+            <p>At home, software, yarn, paint and books all compete for space.</p>
+          </div>
         </div>
       </section>
 
