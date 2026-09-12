@@ -192,6 +192,26 @@ footer { min-height:170px; display:flex; align-items:center; justify-content:spa
   footer { gap:30px; align-items:flex-start; padding-top:60px; }
 }
 
+@media (max-width:700px) {
+  .career-scroll { overflow-x:visible; }
+  .career-map { min-width:0; }
+  .career-phases { grid-template-columns:1fr 1fr 1.25fr; gap:2px; }
+  .career-phases span { min-width:0; padding:0 6px 8px; font-size:9px; line-height:1.2; }
+  .career-phases .education { grid-column:1; padding-left:0; }
+  .career-phases .publishing { grid-column:2; }
+  .career-phases .financial-crime { grid-column:3; }
+  .career-track { display:block; padding:24px 0 8px 34px; }
+  .career-track::before { top:24px; right:auto; bottom:8px; left:7.5px; width:1px; height:auto; }
+  .career-node { min-height:112px; padding:0 0 30px; }
+  .career-years { min-height:0; margin-bottom:8px; }
+  .career-dot { position:absolute; top:0; left:-34px; margin:0; }
+  .career-node h3,.career-node p { max-width:300px; }
+  .career-node.parallel h3,.career-node.parallel>p { max-width:300px; margin-left:0; }
+  .apprenticeship { position:relative; top:auto; left:auto; width:min(100%,320px); margin:-12px 0 34px; padding:16px 18px 16px 20px; background:rgba(223,185,170,.2); }
+  .apprenticeship::before { top:22px; right:100%; bottom:auto; left:auto; width:27px; height:2px; }
+  .apprenticeship::after { top:18px; }
+}
+
 @media (max-width:560px) {
   .hero h1 { font-size:clamp(32px,9.4vw,48px); }
   .reading-inner { grid-template-columns:1fr; }

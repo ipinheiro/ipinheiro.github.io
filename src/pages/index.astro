@@ -71,18 +71,22 @@ const career = [
               </div>
               <div class="career-track">
                 {career.map((item) => (
-                  <article class={`career-node ${item.kind}`}>
-                    <div class="career-years">{item.years}</div>
-                    <div class="career-dot" aria-hidden="true"></div>
-                    <h3>{item.title}</h3>
-                    <p>{item.place}</p>
-                  </article>
+                  <>
+                    <article class={`career-node ${item.kind}`}>
+                      <div class="career-years">{item.years}</div>
+                      <div class="career-dot" aria-hidden="true"></div>
+                      <h3>{item.title}</h3>
+                      <p>{item.place}</p>
+                    </article>
+                    {item.title === 'Insight Analyst' && (
+                      <aside class="apprenticeship">
+                        <span>2020–2022</span>
+                        <strong>Level 7 Data Science & AI Specialist</strong>
+                        <p>Alongside the Insight Analyst role<br />UK Government apprenticeship · Master’s equivalent</p>
+                      </aside>
+                    )}
+                  </>
                 ))}
-                <aside class="apprenticeship">
-                  <span>2020–2022</span>
-                  <strong>Level 7 Data Science & AI Specialist</strong>
-                  <p>Alongside the Insight Analyst role<br />UK Government apprenticeship · Master’s equivalent</p>
-                </aside>
               </div>
             </div>
           </div>
