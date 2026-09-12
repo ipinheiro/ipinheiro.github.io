@@ -1,0 +1,82 @@
+---
+import '../styles/global.css';
+
+const nav = ['Work', 'Reading', 'Making', 'Notes', 'About'];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content="Inês Pinheiro works with data, code and machine learning, and makes things with yarn, pigment and paper." />
+    <title>Inês Pinheiro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,100..900&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <header class="site-header shell">
+      <a class="wordmark" href="/">Inês Pinheiro</a>
+      <nav aria-label="Primary navigation">
+        {nav.map((item) => <a href={`/#${item.toLowerCase()}`}>{item}</a>)}
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero shell">
+        <div class="eyebrow">Data scientist · maker · reader</div>
+        <h1>I work with <span>data, code</span> & machine learning.</h1>
+        <div class="hero-aside">
+          <div class="pattern" aria-hidden="true">× · × · · ×<br />· × · × × ·<br />× · · × · ×</div>
+          <p>I also make things with yarn, pigment, paper and too many browser tabs.</p>
+        </div>
+        <p class="intro">I’m interested in systems, language, knowledge and the patterns that turn up in both technical and creative work.</p>
+      </section>
+
+      <section class="currently shell" id="now">
+        <div class="section-index">01 / currently</div>
+        <div class="current-lead">
+          <p class="scribble">on my desk</p>
+          <h2>Things I’m spending time on now.</h2>
+        </div>
+        <div class="current-grid">
+          <article><span>Reading</span><h3>A small stack, always changing</h3><a href="#reading">See the reading list ↗</a></article>
+          <article><span>Building</span><h3>A commonplace book made for the way I think</h3><p>Personal knowledge systems, retrieval and the pleasure of making your own tools.</p></article>
+          <article><span>Making</span><h3>With yarn, watercolour and code</h3><a href="#making">Things I make ↗</a></article>
+        </div>
+      </section>
+
+      <section class="work shell" id="work">
+        <div class="section-index">02 / selected work</div>
+        <div class="work-heading"><h2>Problems I’ve spent time thinking about.</h2><p>Professional work, described without pretending the interesting parts fit neatly into public repositories.</p></div>
+        <article class="case-study">
+          <div class="case-number">01</div>
+          <div><div class="tags">Machine learning / generative modelling / experimentation</div><h3>Modelling demand when the useful data barely exists</h3><p>How do you estimate demand across a catalogue when observations are concentrated in a small part of the distribution?</p></div>
+          <a href="#">Case study soon ↗</a>
+        </article>
+      </section>
+
+      <section class="reading" id="reading">
+        <div class="shell reading-inner">
+          <div class="section-index">03 / reading · 2026</div>
+          <div class="reading-number">27</div>
+          <div class="reading-copy"><h2>Books so far.</h2><p>Fiction, essays, technical rabbit holes and the books I keep thinking about after I’ve put them down.</p><a href="#">Open the shelf ↗</a></div>
+          <div class="mini-books" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+        </div>
+      </section>
+
+      <section class="making shell" id="making">
+        <div class="section-index">04 / making</div>
+        <h2>Sometimes with code.<br /><span>Sometimes with my hands.</span></h2>
+        <div class="making-grid">
+          <div class="art art-yarn"><span>knitting / in progress</span><div class="stitches">∨ ∨ ∨ ∨ ∨<br />∨ ∧ ∨ ∧ ∨<br />∧ ∨ ∧ ∨ ∧</div></div>
+          <div class="art art-paint"><span>watercolour / studies</span><div class="wash"></div></div>
+          <div class="art art-code"><span>software / experiment</span><strong>COMMON<br />PLACE</strong><small>made because I wanted it to exist</small></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="shell" id="about"><div>Inês Pinheiro · 2026</div><div>Designed, coded & occasionally unravelled.</div></footer>
+  </body>
+</html>
