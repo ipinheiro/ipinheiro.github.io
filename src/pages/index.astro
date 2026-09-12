@@ -1,46 +1,14 @@
 ---
-import '../styles/global.css';
-import { books } from '../data/reading';
+import SiteLayout from '../layouts/SiteLayout.astro';
+import { career } from '../data/career';
+import { currentReadingYear, getReadingArchive } from '../data/reading';
 
-const nav = ['Work', 'Making', 'Reading'];
-const booksReadIn2026 = books.filter((book) => book.year === 2026);
-const currentlyReading = booksReadIn2026.find((book) => book.status === 'reading');
-const finishedPreview = booksReadIn2026.filter((book) => book.status === 'finished').slice(-3).reverse();
-
-const career = [
-  { years: '2009–2013', title: 'BA Communication & Media Studies', place: 'UCP · Lisbon, Portugal', kind: 'education' },
-  { years: '2013–2014', title: 'MA Publishing', place: 'UCL · London, UK', kind: 'education' },
-  { years: '2014–2018', title: 'Development Editor', place: 'ICE Publishing', kind: 'publishing' },
-  { years: '2018–2020', title: 'Junior Metadata Analyst', place: 'Penguin Random House UK', kind: 'publishing' },
-  { years: '2020–2022', title: 'Insight Analyst', place: 'Penguin Random House UK', kind: 'publishing parallel' },
-  { years: '2022–2024', title: 'Data Scientist', place: 'Penguin Random House UK', kind: 'publishing' },
-  { years: '2024–2026', title: 'Senior Data Scientist', place: 'Penguin Random House UK', kind: 'publishing' },
-  { years: '21 Sep 2026', title: 'Data Science Manager', place: 'Feedzai', kind: 'next' },
-];
+const readingArchive = getReadingArchive(currentReadingYear);
+const currentlyReading = readingArchive.currentlyReading[0];
+const finishedPreview = readingArchive.finished.slice(-3).reverse();
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="description" content="Inês Pinheiro builds things with data, code, yarn and paint." />
-    <title>Inês Pinheiro</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,100..900&display=swap" rel="stylesheet" />
-  </head>
-  <body>
-    <header class="site-header">
-      <div class="shell site-header-inner">
-        <a class="wordmark" href="/">Inês Pinheiro</a>
-        <nav aria-label="Primary navigation">
-          {nav.map((item) => <a href={`/#${item.toLowerCase()}`}>{item}</a>)}
-        </nav>
-      </div>
-    </header>
-
-    <main>
+<SiteLayout page="home" title="Inês Pinheiro" description="Inês Pinheiro builds things with data, code, yarn and paint.">
       <section class="hero">
         <div class="shell hero-inner">
           <div class="eyebrow">Data · code · books · making things</div>
@@ -72,17 +40,17 @@ const career = [
               <div class="career-track">
                 {career.map((item) => (
                   <>
-                    <article class={`career-node ${item.kind}`}>
+                    <article class:list={['career-node', item.phase, { parallel: Boolean(item.apprenticeship) }]}>
                       <div class="career-years">{item.years}</div>
                       <div class="career-dot" aria-hidden="true"></div>
                       <h3>{item.title}</h3>
                       <p>{item.place}</p>
                     </article>
-                    {item.title === 'Insight Analyst' && (
+                    {item.apprenticeship && (
                       <aside class="apprenticeship">
-                        <span>2020–2022</span>
-                        <strong>Level 7 Data Science & AI Specialist</strong>
-                        <p>Alongside the Insight Analyst role<br />UK Government apprenticeship · Master’s equivalent</p>
+                        <span>{item.apprenticeship.years}</span>
+                        <strong>{item.apprenticeship.title}</strong>
+                        <p>{item.apprenticeship.context}<br />{item.apprenticeship.qualification}</p>
                       </aside>
                     )}
                   </>
@@ -141,10 +109,10 @@ const career = [
           <div class="section-index">04 / reading</div>
           <div class="reading-copy">
             <h2>Books, essays and rabbit holes.</h2>
-            <p>A record of what I read in 2026. Reviews are optional.</p>
-            <a href="/reading/2026/">Open the 2026 archive ↗</a>
+            <p>A record of what I read in {currentReadingYear}. Reviews are optional.</p>
+            <a href={`/reading/${currentReadingYear}/`}>Open the {currentReadingYear} archive ↗</a>
           </div>
-          <div class="reading-year" aria-label="2026">’26</div>
+          <div class="reading-year" aria-label={String(currentReadingYear)}>’{String(currentReadingYear).slice(-2)}</div>
           <div class="reading-preview">
             {currentlyReading ? (
               <article class="reading-preview-current">
@@ -167,11 +135,4 @@ const career = [
           </div>
         </div>
       </section>
-    </main>
-
-    <footer class="shell">
-      <div>Inês Pinheiro · 2026</div>
-      <div>Designed, coded & occasionally unravelled.</div>
-    </footer>
-  </body>
-</html>
+</SiteLayout>

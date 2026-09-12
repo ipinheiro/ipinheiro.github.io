@@ -25,7 +25,7 @@ bun run build
 ## Project structure
 
 - `src/pages/index.astro` contains the homepage.
-- `src/pages/reading/2026.astro` contains the 2026 reading archive.
+- `src/pages/reading/[year].astro` generates each yearly reading archive.
 - `src/data/reading.ts` stores the reading data separately from the page layout.
 - `src/styles/global.css` contains the Pattern styles and responsive layouts.
 - `.github/workflows/deploy.yml` builds and deploys the site.
@@ -34,7 +34,7 @@ bun run build
 
 Add books to `src/data/reading.ts`. Each entry requires a title, author, year, and status. Dates, categories, ratings, notes, tags, cover images, and favourites are optional.
 
-The available statuses are `reading`, `finished`, `abandoned`, and `paused`.
+The available statuses are `reading`, `finished`, `abandoned`, and `paused`. Add a year to `readingYears` to generate its archive page.
 
 ## Deployment
 

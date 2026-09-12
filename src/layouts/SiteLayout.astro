@@ -1,0 +1,57 @@
+---
+import '../styles/global.css';
+import { currentReadingYear } from '../data/reading';
+
+interface Props {
+  page: 'home' | 'reading';
+  title: string;
+  description: string;
+}
+
+const { page, title, description } = Astro.props;
+const nav = [
+  { label: 'Work', href: '/#work', current: false },
+  { label: 'Making', href: '/#making', current: false },
+  {
+    label: 'Reading',
+    href: page === 'home' ? '/#reading' : `/reading/${currentReadingYear}/`,
+    current: page === 'reading',
+  },
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,100..900&display=swap" rel="stylesheet" />
+  </head>
+  <body class:list={{ 'reading-page': page === 'reading' }}>
+    <header class="site-header">
+      <div class="shell site-header-inner">
+        <a class="wordmark" href="/">Inês Pinheiro</a>
+        <nav aria-label="Primary navigation">
+          {nav.map((item) => (
+            <a href={item.href} aria-current={item.current ? 'page' : undefined}>{item.label}</a>
+          ))}
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="shell">
+      <div>Inês Pinheiro · {currentReadingYear}</div>
+      <div>
+        {page === 'reading' ? <a href="/">Back home ↑</a> : 'Designed, coded & occasionally unravelled.'}
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,29 +1,73 @@
-export const readingStatuses = ['reading', 'finished', 'abandoned', 'paused'] as const;
+export const readingYears = [2026] as const;
 
-export type ReadingStatus = (typeof readingStatuses)[number];
+export type ReadingLocation = 'bedside-table' | 'kindle';
+export type ReadingYear = (typeof readingYears)[number];
+export type Rating = 1 | 2 | 3 | 4 | 5;
+
+export const currentReadingYear = 2026 satisfies ReadingYear;
+export type ISODate = `${number}-${number}-${number}`;
 
 export interface BookCover {
-  src: string;
-  alt: string;
+  readonly src: string;
+  readonly alt: string;
 }
 
-export interface Book {
-  title: string;
-  author: string;
-  year: number;
-  status: ReadingStatus;
-  readingLocation?: 'bedside-table' | 'kindle';
-  cover?: BookCover;
-  dateStarted?: string;
-  dateFinished?: string;
-  category?: string;
-  rating?: number;
-  favourite?: boolean;
-  note?: string;
-  tags?: string[];
+interface BookBase {
+  readonly title: string;
+  readonly author: string;
+  readonly year: ReadingYear;
+  readonly cover?: BookCover;
+  readonly dateStarted?: ISODate;
+  readonly category?: string;
+  readonly rating?: Rating;
+  readonly note?: string;
+  readonly tags?: readonly string[];
 }
 
-export const books: Book[] = [
+export interface ReadingBook extends BookBase {
+  readonly status: 'reading';
+  readonly readingLocation?: ReadingLocation;
+  readonly dateFinished?: never;
+  readonly favourite?: never;
+}
+
+export interface FinishedBook extends BookBase {
+  readonly status: 'finished';
+  readonly readingLocation?: never;
+  readonly dateFinished?: ISODate;
+  readonly favourite?: boolean;
+}
+
+export interface AbandonedBook extends BookBase {
+  readonly status: 'abandoned';
+  readonly readingLocation?: never;
+  readonly dateFinished?: never;
+  readonly favourite?: never;
+}
+
+export interface PausedBook extends BookBase {
+  readonly status: 'paused';
+  readonly readingLocation?: never;
+  readonly dateFinished?: never;
+  readonly favourite?: never;
+}
+
+export type Book = ReadingBook | FinishedBook | AbandonedBook | PausedBook;
+export type ReadingStatus = Book['status'];
+
+export interface ReadingArchive {
+  all: readonly Book[];
+  currentlyReading: readonly ReadingBook[];
+  finished: readonly FinishedBook[];
+  favourites: readonly FinishedBook[];
+}
+
+const readingLocationLabels = {
+  'bedside-table': 'Open on the bedside table',
+  kindle: 'Open in the Kindle',
+} satisfies Record<ReadingLocation, string>;
+
+export const books: readonly Book[] = [
   {
     title: 'Vehicle: A Verse Novel',
     author: 'Jen Calleja',
@@ -90,4 +134,19 @@ export const books: Book[] = [
   },
 ];
 
-export const readingYears = [2026] as const;
+export function getReadingArchive(year: ReadingYear): ReadingArchive {
+  const all = books.filter((book) => book.year === year);
+  const currentlyReading = all.filter((book): book is ReadingBook => book.status === 'reading');
+  const finished = all.filter((book): book is FinishedBook => book.status === 'finished');
+
+  return {
+    all,
+    currentlyReading,
+    finished,
+    favourites: finished.filter((book) => book.favourite),
+  };
+}
+
+export function getReadingLocationLabel(location?: ReadingLocation): string {
+  return location ? readingLocationLabels[location] : 'Currently reading';
+}
