@@ -7,10 +7,10 @@ const career = [
   { years: '2009–2013', title: 'BA Communication & Media Studies', place: 'UCP · Lisbon, Portugal', kind: 'education' },
   { years: '2013–2014', title: 'MA Publishing', place: 'UCL · London, UK', kind: 'education' },
   { years: '2014–2018', title: 'Development Editor', place: 'ICE Publishing', kind: 'publishing' },
-  { years: '2018–2020', title: 'Junior Metadata Analyst', place: 'Penguin Random House UK', kind: 'data' },
-  { years: '2020–2022', title: 'Insight Analyst', place: 'Penguin Random House UK', kind: 'data' },
-  { years: '2022–2024', title: 'Data Scientist', place: 'Penguin Random House UK', kind: 'data' },
-  { years: '2024–2026', title: 'Senior Data Scientist', place: 'Penguin Random House UK', kind: 'data' },
+  { years: '2018–2020', title: 'Junior Metadata Analyst', place: 'Penguin Random House UK', kind: 'publishing' },
+  { years: '2020–2022', title: 'Insight Analyst', place: 'Penguin Random House UK', kind: 'publishing parallel' },
+  { years: '2022–2024', title: 'Data Scientist', place: 'Penguin Random House UK', kind: 'publishing' },
+  { years: '2024–2026', title: 'Senior Data Scientist', place: 'Penguin Random House UK', kind: 'publishing' },
   { years: '21 Sep 2026', title: 'Data Science Manager', place: 'Feedzai', kind: 'next' },
 ];
 ---
@@ -54,27 +54,28 @@ const career = [
             <p>I started in publishing and moved into data one role at a time. The thread has stayed the same: understanding messy information and making something useful from it.</p>
           </div>
 
-          <div class="career-key" aria-label="Career map legend">
-            <span><i class="key-dot education"></i>Education</span>
-            <span><i class="key-dot publishing"></i>Publishing</span>
-            <span><i class="key-dot data"></i>Data</span>
-            <span><i class="key-dot next"></i>Next</span>
-          </div>
-
           <div class="career-scroll">
-            <div class="career-track">
-              {career.map((item) => (
-                <article class={`career-node ${item.kind}`}>
-                  <div class="career-years">{item.years}</div>
-                  <div class="career-dot" aria-hidden="true"></div>
-                  <h3>{item.title}</h3>
-                  <p>{item.place}</p>
-                </article>
-              ))}
-              <aside class="apprenticeship">
-                <span>2020–2022</span>
-                <strong>Level 7 Data Science & AI Specialist</strong>
-              </aside>
+            <div class="career-map">
+              <div class="career-phases" aria-label="Career context">
+                <span class="education">Education</span>
+                <span class="publishing">Publishing</span>
+                <span class="financial-crime">Financial crime prevention</span>
+              </div>
+              <div class="career-track">
+                {career.map((item) => (
+                  <article class={`career-node ${item.kind}`}>
+                    <div class="career-years">{item.years}</div>
+                    <div class="career-dot" aria-hidden="true"></div>
+                    <h3>{item.title}</h3>
+                    <p>{item.place}</p>
+                  </article>
+                ))}
+                <aside class="apprenticeship">
+                  <span>2020–2022</span>
+                  <strong>Level 7 Data Science & AI Specialist</strong>
+                  <p>Alongside the Insight Analyst role<br />UK Government apprenticeship · Master’s equivalent</p>
+                </aside>
+              </div>
             </div>
           </div>
         </div>
