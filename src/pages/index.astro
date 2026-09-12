@@ -1,7 +1,18 @@
 ---
 import '../styles/global.css';
 
-const nav = ['Work', 'Reading', 'Making', 'Notes', 'About'];
+const nav = ['Work', 'Making', 'Reading', 'About'];
+
+const career = [
+  { years: '2009–2013', title: 'BA Communication & Media Studies', place: 'Lisbon', kind: 'education' },
+  { years: '2013–2014', title: 'MA Publishing', place: 'UCL', kind: 'education' },
+  { years: '2014–2018', title: 'Development Editor', place: 'ICE Publishing', kind: 'publishing' },
+  { years: '2018–2020', title: 'Junior Metadata Analyst', place: 'Penguin Random House', kind: 'data' },
+  { years: '2020–2022', title: 'Insight Analyst', place: 'Penguin Random House', kind: 'data' },
+  { years: '2022–2024', title: 'Data Scientist', place: 'Penguin Random House', kind: 'data' },
+  { years: '2024–2026', title: 'Senior Data Scientist', place: 'Penguin Random House', kind: 'data' },
+  { years: '21 Sep 2026', title: 'Data Science Manager', place: 'Feedzai', kind: 'next' },
+];
 ---
 
 <!doctype html>
@@ -9,7 +20,7 @@ const nav = ['Work', 'Reading', 'Making', 'Notes', 'About'];
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta name="description" content="Inês Pinheiro is a senior data scientist who works on machine learning systems and makes things with code, yarn and paint." />
+    <meta name="description" content="Inês Pinheiro builds things with data, code, yarn and paint." />
     <title>Inês Pinheiro</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -25,63 +36,109 @@ const nav = ['Work', 'Reading', 'Making', 'Notes', 'About'];
 
     <main>
       <section class="hero shell">
-        <div class="eyebrow">Senior data scientist · maker · reader</div>
-        <h1>I work with <span>data, code</span> & machine learning.</h1>
+        <div class="eyebrow">Data · code · books · making things</div>
+        <h1>I turn complex information into things people can use.</h1>
+        <p class="hero-kicker">And I also like to build silly things!</p>
         <div class="hero-aside">
           <div class="pattern" aria-hidden="true">× · × · · ×<br />· × · × × ·<br />× · · × · ×</div>
-          <p>I also make things with yarn, pigment, paper and too many browser tabs.</p>
-        </div>
-        <p class="intro">I like work where the details matter: unreliable models, awkward inputs, concurrent systems and tools people need to trust.</p>
-      </section>
-
-      <section class="currently shell" id="now">
-        <div class="section-index">01 / currently</div>
-        <div class="current-lead">
-          <p class="scribble">on my desk</p>
-          <h2>Things I’m spending time on now.</h2>
-        </div>
-        <div class="current-grid">
-          <article><span>Reading</span><h3>A small stack, always changing</h3><a href="#reading">See the reading list ↗</a></article>
-          <article><span>Building</span><h3>A commonplace book made for the way I think</h3><p>A personal tool for collecting what I read, making connections and finding it again later.</p></article>
-          <article><span>Making</span><h3>With yarn, watercolour and code</h3><a href="#making">Things I make ↗</a></article>
+          <p>I’m Inês. I build things with data, code and whatever else seems useful. At work, I sweat the details. Outside it, curiosity usually wins.</p>
         </div>
       </section>
 
-      <section class="work shell" id="work">
-        <div class="section-index">02 / selected work</div>
-        <div class="work-heading"><h2>Problems I’ve spent time thinking about.</h2><p>I lead small data science and machine learning teams from an untidy brief through architecture, experiments, code review and delivery.</p></div>
-        <article class="case-study">
-          <div class="case-number">01</div>
-          <div><div class="tags">LLMs / NLP / system design</div><h3>Can an LLM summary earn an editor’s trust?</h3><p>Long-form book summarisation where no single validator gets the last word. Genre routing, source-grounded entities, claim-level judging and deterministic checks catch different kinds of failure.</p></div>
-          <a href="#">Case study soon ↗</a>
-        </article>
-        <article class="case-study">
-          <div class="case-number">02</div>
-          <div><div class="tags">NLP / analytics / production ML</div><h3>What happens when an ML product outgrows the system it started with?</h3><p>I built the first Reviews Radar pipeline, then later led its redesign when a data-source migration pushed each refresh from thousands of rows to millions. The new system changed the data path, the LLM stack and the topic model rather than stretching the old design past its limits.</p></div>
-          <a href="#">Case study soon ↗</a>
-        </article>
+      <section class="career" id="work">
+        <div class="shell career-inner">
+          <div class="section-index">01 / work</div>
+          <div class="career-heading">
+            <h2>Books, metadata, models.</h2>
+            <p>I started in publishing and moved into data one role at a time. The thread has stayed the same: understanding messy information and making something useful from it.</p>
+          </div>
+
+          <div class="career-key" aria-label="Career map legend">
+            <span><i class="key-dot education"></i>Education</span>
+            <span><i class="key-dot publishing"></i>Publishing</span>
+            <span><i class="key-dot data"></i>Data</span>
+            <span><i class="key-dot next"></i>Next</span>
+          </div>
+
+          <div class="career-scroll">
+            <div class="career-track">
+              {career.map((item) => (
+                <article class={`career-node ${item.kind}`}>
+                  <div class="career-years">{item.years}</div>
+                  <div class="career-dot" aria-hidden="true"></div>
+                  <h3>{item.title}</h3>
+                  <p>{item.place}</p>
+                </article>
+              ))}
+              <aside class="apprenticeship">
+                <span>2020–2022</span>
+                <strong>Level 7 Data Science & AI Specialist</strong>
+              </aside>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="recent-work">
+        <div class="shell recent-work-inner">
+          <div class="section-index">02 / recent work at PRH</div>
+          <div class="recent-work-heading">
+            <h2>What I was working on most recently.</h2>
+            <p>By the end of my time at Penguin Random House, I was leading small DS and ML teams across several projects at once, while staying close to architecture, experiments and code review.</p>
+          </div>
+
+          <div class="work-grid">
+            <article>
+              <span>01 / long-form summarisation</span>
+              <h3>Building safeguards around models that can be wrong.</h3>
+              <p>Genre-specific pipelines, entity grounding, claim-level validation and deterministic checks each catch a different kind of failure.</p>
+            </article>
+            <article>
+              <span>02 / Reviews Radar</span>
+              <h3>Rebuilding an ML product at a new scale.</h3>
+              <p>A data-source migration pushed each refresh from thousands of reviews to millions. I led the redesign of the data path, topic modelling and LLM stack.</p>
+            </article>
+            <article>
+              <span>03 / forecasting</span>
+              <h3>Making forecasts useful enough to act on.</h3>
+              <p>Forecast MAPE improved from 42% to 35%, with SHAP explanations for finance and inventory teams.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="making" id="making">
+        <div class="shell making-inner">
+          <div class="section-index">03 / making</div>
+          <div class="making-heading">
+            <h2>Things I make because I want them to exist.</h2>
+            <p>Sometimes that means software. Sometimes yarn or paint wins.</p>
+          </div>
+          <div class="making-grid">
+            <div class="art art-code"><span>software / commonplace</span><strong>COMMON<br />PLACE</strong><small>a personal knowledge system built around how I want to use it</small></div>
+            <div class="art art-yarn"><span>knitting / in progress</span><div class="stitches">∨ ∨ ∨ ∨ ∨<br />∨ ∧ ∨ ∧ ∨<br />∧ ∨ ∧ ∨ ∧</div></div>
+            <div class="art art-paint"><span>watercolour / studies</span><div class="wash"></div></div>
+          </div>
+        </div>
       </section>
 
       <section class="reading" id="reading">
         <div class="shell reading-inner">
-          <div class="section-index">03 / reading · 2026</div>
-          <div class="reading-number">2026</div>
-          <div class="reading-copy"><h2>What I’ve been reading.</h2><p>Fiction, essays, technical rabbit holes and the books that follow me around after I’ve put them down.</p><a href="#">Open the shelf ↗</a></div>
+          <div class="section-index">04 / reading</div>
+          <div class="reading-copy">
+            <h2>Books, essays and rabbit holes.</h2>
+            <p>A record of what I’ve read in 2026, without pretending every book needs a review.</p>
+            <a href="#">The shelf is coming ↗</a>
+          </div>
+          <div class="reading-year" aria-label="2026">’26</div>
           <div class="mini-books" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
-        </div>
-      </section>
-
-      <section class="making shell" id="making">
-        <div class="section-index">04 / making</div>
-        <h2>Sometimes with code.<br /><span>Sometimes with my hands.</span></h2>
-        <div class="making-grid">
-          <div class="art art-yarn"><span>knitting / in progress</span><div class="stitches">∨ ∨ ∨ ∨ ∨<br />∨ ∧ ∨ ∧ ∨<br />∧ ∨ ∧ ∨ ∧</div></div>
-          <div class="art art-paint"><span>watercolour / studies</span><div class="wash"></div></div>
-          <div class="art art-code"><span>software / commonplace</span><strong>COMMON<br />PLACE</strong><small>a personal knowledge system built around how I want to use it</small></div>
         </div>
       </section>
     </main>
 
-    <footer class="shell" id="about"><div>Inês Pinheiro · 2026</div><div>Designed, coded & occasionally unravelled.</div></footer>
+    <footer class="shell" id="about">
+      <div>Inês Pinheiro · 2026</div>
+      <div>Designed, coded & occasionally unravelled.</div>
+    </footer>
   </body>
 </html>
